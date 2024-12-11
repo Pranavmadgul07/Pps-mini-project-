@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Weapon {
+    string name;
+    int damage;
+    int quantity;
+};
+
+void add_weapon(vector<Weapon>& inventory, const string& name, int damage, int quantity) {
+    Weapon weapon = {name, damage, quantity};
+    inventory.push_back(weapon);
+    cout << name << " added to inventory." << endl;
+}
+
+void remove_weapon(vector<Weapon>& inventory, const string& name) {
+    for (int i = 0; i < inventory.size(); i++) {
+        if (inventory[i].name == name) {
+            inventory.erase(inventory.begin() + i);
+            cout << name << " removed from inventory." << endl;
+            return;
+        }
+    }
+    cout << name << " not found in inventory." << endl;
+}
+
+void display_inventory(const vector<Weapon>& inventory) {
+    cout << "Inventory:" << endl;
+    for (const Weapon& weapon : inventory) {
+        cout << "- " << weapon.name << " (Damage: " << weapon.damage << ", Quantity: " << weapon.quantity << ")" << endl;
+    }
+}
+
+int main() {
+    vector<Weapon> inventory;
+
+    add_weapon(inventory, "Sword", 10, 2);
+    add_weapon(inventory, "Axe", 15, 1);
+    add_weapon(inventory, "Bow", 8, 3);
+
+    display_inventory(inventory);
+
+    remove_weapon(inventory, "Axe");
+
+    display_inventory(inventory);
+
+    return 0;
+}
